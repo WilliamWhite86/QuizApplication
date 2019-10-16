@@ -32,6 +32,12 @@ function questionSetter(){
         document.getElementById("answerTwo").textContent = "";
         document.getElementById("answerThree").textContent = "";
         document.getElementById("answerFour").textContent = "";
+        var inputTag = document.createElement("input");
+        document.body.appendChild(inputTag);
+        var submitButton = document.createElement("button");
+        submitButton.textContent = "Submit";
+        document.body.appendChild(submitButton);
+
 
     }
     else {document.getElementById("question").textContent = questions[i]["title"];
@@ -95,3 +101,7 @@ document.getElementById("answerFour").addEventListener("click", function(){
     i++;
     questionSetter();
 })
+
+function scoreSetter(){
+    
+}
