@@ -3,9 +3,8 @@ var score = 0;
 var timer = document.querySelector("#time");
 var secondsLeft = 20;
 var messageDiv = document.querySelector("#message");
-var usernameSpan = document.querySelector("#name");
-var scoreSpan = document.querySelector("#score");
-
+var storedScores;
+var scoreList = [];
 
 function setTime() {
     var timerInterval = setInterval(function () {
@@ -25,6 +24,7 @@ function setTime() {
 }
 
 setTime();
+
 questionSetter();
 
 function displayMessage(type, message) {
@@ -36,6 +36,7 @@ function questionSetter() {
 
     if (i === questions.length) {
         score += secondsLeft * .1;
+        score = score.toFixed(2);
         document.getElementById("question").textContent = "you're done";
         document.getElementById("answerOne").textContent = "your score: " + score;
         document.getElementById("answerTwo").textContent = "";
@@ -50,35 +51,13 @@ function questionSetter() {
         submitButton.addEventListener("click", function (event) {
             event.preventDefault();
 
-            // create object from submission
-
-            var quizTaker = {
-                name: inputTag.value.trim(),
-                finalScore: score
-            };
-
-            console.log(quizTaker);
-
-            // validate input
-
-            if (quizTaker.inputTag === "") {
-                displayMessage("error", "enter your name");
-            }
-            else {
-                displayMessage("success", "well done");
-
-                // set new submission
-
-                localStorage.setItem("quizTaker", JSON.stringify(quizTaker));
-
-                // get most recent submission
-                var lastInput = JSON.parse(localStorage.getItem("quizTaker"));
-                console.log(lastInput.name);
-                usernameSpan.textContent = lastInput.name;
-                scoreSpan.textContent = lastInput.score;
-            }
-
+            var highScoreText  = new Object();
+            highScoreText.name = inputTag.value.trim();
+            highScoreText.newScore = score;
+            console.log(highScoreText);
+            storeScores(highScoreText);
         });
+
     }
     else {
         document.getElementById("question").textContent = questions[i]["title"];
@@ -89,6 +68,20 @@ function questionSetter() {
     }
 }
 
+function storeScores(highScoreText) {
+    console.log(highScoreText);
+    tempArray = JSON.parse(localStorage.getItem("scores"));
+    if(tempArray === null){
+        scoreList.push(highScoreText);
+        console.log(scoreList);
+        localStorage.setItem("scores", JSON.stringify(scoreList));
+    }
+    else {
+        tempArray.push(highScoreText);
+        localStorage.setItem("scores", JSON.stringify(tempArray));
+    }
+}
+
 document.getElementById("answerOne").addEventListener("click", function () {
     if (questions[i]["choices"][0] === questions[i]["answer"]) {
         alert("correct");
@@ -96,7 +89,7 @@ document.getElementById("answerOne").addEventListener("click", function () {
     }
     else {
         alert("wrong");
-        secondsLeft -= 5;
+        secondsLeft -= 10;
     }
     i++;
     questionSetter();
@@ -109,7 +102,7 @@ document.getElementById("answerTwo").addEventListener("click", function () {
     }
     else {
         alert("wrong");
-        secondsLeft -= 5;
+        secondsLeft -= 10;
     }
     i++;
     questionSetter();
@@ -122,7 +115,7 @@ document.getElementById("answerThree").addEventListener("click", function () {
     }
     else {
         alert("wrong");
-        secondsLeft -= 5;
+        secondsLeft -= 10;
     }
     i++;
     questionSetter();
@@ -135,7 +128,7 @@ document.getElementById("answerFour").addEventListener("click", function () {
     }
     else {
         alert("wrong");
-        secondsLeft -= 5;
+        secondsLeft -= 10;
     }
     i++;
     questionSetter();
