@@ -10,6 +10,8 @@ var answerTwo = document.getElementById("answerTwo");
 var answerThree = document.getElementById("answerThree");
 var answerFour = document.getElementById("answerFour");
 
+
+
 function setTime() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
@@ -18,6 +20,7 @@ function setTime() {
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
             alert("Out of Time");
+            questionEnder();
         }
 
         else if (i === questions.length) {
@@ -26,50 +29,44 @@ function setTime() {
     }, 1000)
     return (score)
 }
+function questionEnder(){
 
-setTime();
-
-questionSetter();
-
-function displayMessage(type, message) {
-    messageDiv.textContent = message;
-    messageDiv.setAttribute("class", type);
+    var scoreTag = document.createElement("h1");
+    var inputTag = document.createElement("input");
+    var submitButton = document.createElement("button");
+    score += secondsLeft * .1;
+    score = score.toFixed(2);
+    document.getElementById("question").textContent = "All Done!";
+    answerOne.remove();
+    answerTwo.remove();
+    answerThree.remove();
+    answerFour.remove();
+    document.body.appendChild(scoreTag);
+    document.getElementsByTagName("h1")[0].setAttribute("id","score");
+    document.getElementById("score").textContent = "Your Score: " + score;
+    document.body.appendChild(inputTag);
+    submitButton.textContent = "Submit";
+    document.body.appendChild(submitButton);
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        var highScoreText  = new Object();
+        highScoreText.name = inputTag.value.trim();
+        highScoreText.newScore = score;
+        console.log(highScoreText);
+        storeScores(highScoreText);
+        window.location.href = "highScores.html";
+    });
 }
-
 function questionSetter() {
 
+    answerOne.hidden = false;
+    answerTwo.hidden = false;
+    answerThree.hidden = false;
+    answerFour.hidden = false;
+
+    document.getElementById("startButton").hidden = true;
     if (i === questions.length) {
-        score += secondsLeft * .1;
-        score = score.toFixed(2);
-        document.getElementById("question").textContent = "All Done!";
-        //document.getElementById("answerOne").textContent = "your score: " + score;
-        answerOne.remove();
-        //document.getElementById("answerTwo").textContent = "";
-        answerTwo.remove();
-        //document.getElementById("answerThree").textContent = "";
-        answerThree.remove();
-        //document.getElementById("answerFour").textContent = "";
-        answerFour.remove();
-        var scoreTag = document.createElement("h1");
-        document.body.appendChild(scoreTag);
-        document.getElementsByTagName("h1")[0].setAttribute("id","score");
-        document.getElementById("score").textContent = "Your Score: " + score;
-        var inputTag = document.createElement("input");
-        document.body.appendChild(inputTag);
-        var submitButton = document.createElement("button");
-        submitButton.textContent = "Submit";
-        document.body.appendChild(submitButton);
-
-        submitButton.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            var highScoreText  = new Object();
-            highScoreText.name = inputTag.value.trim();
-            highScoreText.newScore = score;
-            console.log(highScoreText);
-            storeScores(highScoreText);
-        });
-
+        questionEnder();
     }
     else {
         document.getElementById("question").textContent = questions[i]["title"];
@@ -92,13 +89,20 @@ function storeScores(highScoreText) {
     }
 }
 
+document.getElementById("startButton").addEventListener("click", questionSetter);
+document.getElementById("startButton").addEventListener("click", setTime);
+answerOne.hidden = true;
+answerTwo.hidden = true;
+answerThree.hidden = true;
+answerFour.hidden = true;
+
 document.getElementById("answerOne").addEventListener("click", function () {
     if (questions[i]["choices"][0] === questions[i]["answer"]) {
-        alert("correct");
+        document.getElementById("message").textContent = "Correct!";
         score++;
     }
     else {
-        alert("wrong");
+        document.getElementById("message").textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -107,11 +111,11 @@ document.getElementById("answerOne").addEventListener("click", function () {
 
 document.getElementById("answerTwo").addEventListener("click", function () {
     if (questions[i]["choices"][1] === questions[i]["answer"]) {
-        alert("correct");
+        document.getElementById("message").textContent = "Correct!";
         score++;
     }
     else {
-        alert("wrong");
+        document.getElementById("message").textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -120,11 +124,11 @@ document.getElementById("answerTwo").addEventListener("click", function () {
 
 document.getElementById("answerThree").addEventListener("click", function () {
     if (questions[i]["choices"][2] === questions[i]["answer"]) {
-        alert("correct");
+        document.getElementById("message").textContent = "Correct!";
         score++;
     }
     else {
-        alert("wrong");
+        document.getElementById("message").textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -133,11 +137,11 @@ document.getElementById("answerThree").addEventListener("click", function () {
 
 document.getElementById("answerFour").addEventListener("click", function () {
     if (questions[i]["choices"][3] === questions[i]["answer"]) {
-        alert("correct");
+        document.getElementById("message").textContent = "Correct!";
         score++;
     }
     else {
-        alert("wrong");
+        document.getElementById("message").textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;

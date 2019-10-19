@@ -20,23 +20,19 @@ function renderScores() {
         return a.newScore - b.newScore
     })
     
-    for (var i = 0; i < scoreList.length; i++) {
+    for (i = 0; i < scoreList.length; i++) {
         var scoreListItem = scoreList[i];
-
         var tr = document.createElement("tr");
+        var nameCell = document.createElement("td");
+        var nameCellText = document.createTextNode(scoreListItem.name);
+        var scoreCell = document.createElement("td");
+        var scoreCellNum = document.createTextNode(scoreListItem.newScore);
+
         tr.setAttribute("tr-index", i);
         document.getElementById("highScores").appendChild(tr);
-
-        var nameCell = document.createElement("td");
         tr.appendChild(nameCell);
-
-        var nameCellText = document.createTextNode(scoreListItem.name);
         nameCell.appendChild(nameCellText);
-
-        var scoreCell = document.createElement("td");
         tr.appendChild(scoreCell);
-
-        var scoreCellNum = document.createTextNode(scoreListItem.newScore);
         tr.appendChild(scoreCellNum);
 
     }
