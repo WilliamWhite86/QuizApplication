@@ -1,6 +1,7 @@
 var highScoreList = document.querySelector("#highScores");
 
 initScores();
+
 function initScores() {
     storedScores = JSON.parse(localStorage.getItem("scores"));
 
@@ -11,15 +12,14 @@ function initScores() {
 }
 
 function renderScores() {
-    //highScoreList.innerHTML = "";
-    // Render new li for each highscore
+
     scoreList.sort(function(a,b){
         return a.newScore - b.newScore;
     });
     scoreList.reverse(function(a,b){
         return a.newScore - b.newScore
     })
-    console.log(scoreList);
+    
     for (var i = 0; i < scoreList.length; i++) {
         var scoreListItem = scoreList[i];
 

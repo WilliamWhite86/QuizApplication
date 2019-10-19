@@ -5,6 +5,10 @@ var secondsLeft = 20;
 var messageDiv = document.querySelector("#message");
 var storedScores;
 var scoreList = [];
+var answerOne = document.getElementById("answerOne");
+var answerTwo = document.getElementById("answerTwo");
+var answerThree = document.getElementById("answerThree");
+var answerFour = document.getElementById("answerFour");
 
 function setTime() {
     var timerInterval = setInterval(function () {
@@ -37,11 +41,19 @@ function questionSetter() {
     if (i === questions.length) {
         score += secondsLeft * .1;
         score = score.toFixed(2);
-        document.getElementById("question").textContent = "you're done";
-        document.getElementById("answerOne").textContent = "your score: " + score;
-        document.getElementById("answerTwo").textContent = "";
-        document.getElementById("answerThree").textContent = "";
-        document.getElementById("answerFour").textContent = "";
+        document.getElementById("question").textContent = "All Done!";
+        //document.getElementById("answerOne").textContent = "your score: " + score;
+        answerOne.remove();
+        //document.getElementById("answerTwo").textContent = "";
+        answerTwo.remove();
+        //document.getElementById("answerThree").textContent = "";
+        answerThree.remove();
+        //document.getElementById("answerFour").textContent = "";
+        answerFour.remove();
+        var scoreTag = document.createElement("h1");
+        document.body.appendChild(scoreTag);
+        document.getElementsByTagName("h1")[0].setAttribute("id","score");
+        document.getElementById("score").textContent = "Your Score: " + score;
         var inputTag = document.createElement("input");
         document.body.appendChild(inputTag);
         var submitButton = document.createElement("button");
@@ -69,11 +81,9 @@ function questionSetter() {
 }
 
 function storeScores(highScoreText) {
-    console.log(highScoreText);
     tempArray = JSON.parse(localStorage.getItem("scores"));
     if(tempArray === null){
         scoreList.push(highScoreText);
-        console.log(scoreList);
         localStorage.setItem("scores", JSON.stringify(scoreList));
     }
     else {
