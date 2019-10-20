@@ -1,6 +1,6 @@
 var i = 0;
 var score = 0;
-var secondsLeft = 20;
+var secondsLeft = 60;
 var timer = document.querySelector("#time");
 var messageDiv = document.querySelector("#message");
 var storedScores;
@@ -9,7 +9,9 @@ var answerOne = document.getElementById("answerOne");
 var answerTwo = document.getElementById("answerTwo");
 var answerThree = document.getElementById("answerThree");
 var answerFour = document.getElementById("answerFour");
+//Not under Copyright - correctAudio.wav provided by Mudkip2016 - https://freesound.org/people/Mudkip2016/sounds/423930/
 var correctSound = new Audio("assets/audio/correctAudio.wav");
+//Copyright - License Notice - Disclaimer Notice - incorrectAudio.mp3 provided by RICHERlandTV - https://freesound.org/people/RICHERlandTV/sounds/216090/  
 var incorrectSound = new Audio("assets/audio/incorrectAudio.mp3");
 
 
@@ -32,7 +34,7 @@ function setTime() {
     }, 1000)
     return (score)
 }
-function questionEnder(){
+function questionEnder() {
 
     var scoreTag = document.createElement("h1");
     var inputTag = document.createElement("input");
@@ -44,16 +46,16 @@ function questionEnder(){
     answerTwo.remove();
     answerThree.remove();
     answerFour.remove();
-    document.body.appendChild(scoreTag);
-    document.getElementsByTagName("h1")[0].setAttribute("id","score");
+    document.body.children[1].appendChild(scoreTag);
+    document.getElementsByTagName("h1")[0].setAttribute("id", "score");
     document.getElementById("score").textContent = "Your Score: " + score;
-    document.body.appendChild(inputTag);
-    document.getElementsByTagName("input")[0].setAttribute("id","input-field");
+    document.body.children[1].appendChild(inputTag);
+    document.getElementsByTagName("input")[0].setAttribute("id", "input-field");
     submitButton.textContent = "Submit";
-    document.body.appendChild(submitButton);
+    document.body.children[1].appendChild(submitButton);
     submitButton.addEventListener("click", function (event) {
         event.preventDefault();
-        var highScoreText  = new Object();
+        var highScoreText = new Object();
         highScoreText.name = inputTag.value.trim();
         highScoreText.newScore = score;
         storeScores(highScoreText);
@@ -82,7 +84,7 @@ function questionSetter() {
 
 function storeScores(highScoreText) {
     tempArray = JSON.parse(localStorage.getItem("scores"));
-    if(tempArray === null){
+    if (tempArray === null) {
         scoreList.push(highScoreText);
         localStorage.setItem("scores", JSON.stringify(scoreList));
     }
@@ -94,7 +96,7 @@ function storeScores(highScoreText) {
 
 document.getElementById("startButton").addEventListener("click", questionSetter);
 document.getElementById("startButton").addEventListener("click", setTime);
-document.getElementById("startButton").addEventListener("click", function(){
+document.getElementById("startButton").addEventListener("click", function () {
     messageDiv.textContent = "";
 });
 

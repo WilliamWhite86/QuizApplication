@@ -39,7 +39,7 @@ function renderScores() {
             tr.appendChild(nameCell);
             nameCell.appendChild(nameCellText);
             tr.appendChild(scoreCell);
-            tr.appendChild(scoreCellNum);
+            scoreCell.appendChild(scoreCellNum);
 
         }
     }

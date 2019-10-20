@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-#master-div{
+#master-div {
     text-align: -webkit-center;
 }
 
@@ -44,7 +44,20 @@
     margin: 15px 15px 15px 15px;
 }
 
-#input-field{
+#input-field {
     margin-right: 15px;
     margin-left: 15px;
+}
+
+#go-back {
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+#clear-highscores {
+    margin-top: 15px;
+}
+
+td {
+    padding: 5px;
 }
