@@ -1,7 +1,7 @@
 var i = 0;
 var score = 0;
-var timer = document.querySelector("#time");
 var secondsLeft = 20;
+var timer = document.querySelector("#time");
 var messageDiv = document.querySelector("#message");
 var storedScores;
 var scoreList = [];
@@ -9,6 +9,7 @@ var answerOne = document.getElementById("answerOne");
 var answerTwo = document.getElementById("answerTwo");
 var answerThree = document.getElementById("answerThree");
 var answerFour = document.getElementById("answerFour");
+
 
 
 
@@ -45,6 +46,7 @@ function questionEnder(){
     document.getElementsByTagName("h1")[0].setAttribute("id","score");
     document.getElementById("score").textContent = "Your Score: " + score;
     document.body.appendChild(inputTag);
+    document.getElementsByTagName("input")[0].setAttribute("id","input-field");
     submitButton.textContent = "Submit";
     document.body.appendChild(submitButton);
     submitButton.addEventListener("click", function (event) {
@@ -52,7 +54,6 @@ function questionEnder(){
         var highScoreText  = new Object();
         highScoreText.name = inputTag.value.trim();
         highScoreText.newScore = score;
-        console.log(highScoreText);
         storeScores(highScoreText);
         window.location.href = "highScores.html";
     });
@@ -91,6 +92,10 @@ function storeScores(highScoreText) {
 
 document.getElementById("startButton").addEventListener("click", questionSetter);
 document.getElementById("startButton").addEventListener("click", setTime);
+document.getElementById("startButton").addEventListener("click", function(){
+    messageDiv.textContent = "";
+});
+
 answerOne.hidden = true;
 answerTwo.hidden = true;
 answerThree.hidden = true;
@@ -98,11 +103,11 @@ answerFour.hidden = true;
 
 document.getElementById("answerOne").addEventListener("click", function () {
     if (questions[i]["choices"][0] === questions[i]["answer"]) {
-        document.getElementById("message").textContent = "Correct!";
+        messageDiv.textContent = "Correct!";
         score++;
     }
     else {
-        document.getElementById("message").textContent = "Wrong!";
+        messageDiv.textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -111,11 +116,11 @@ document.getElementById("answerOne").addEventListener("click", function () {
 
 document.getElementById("answerTwo").addEventListener("click", function () {
     if (questions[i]["choices"][1] === questions[i]["answer"]) {
-        document.getElementById("message").textContent = "Correct!";
+        messageDiv.textContent = "Correct!";
         score++;
     }
     else {
-        document.getElementById("message").textContent = "Wrong!";
+        messageDiv.textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -124,11 +129,11 @@ document.getElementById("answerTwo").addEventListener("click", function () {
 
 document.getElementById("answerThree").addEventListener("click", function () {
     if (questions[i]["choices"][2] === questions[i]["answer"]) {
-        document.getElementById("message").textContent = "Correct!";
+        messageDiv.textContent = "Correct!";
         score++;
     }
     else {
-        document.getElementById("message").textContent = "Wrong!";
+        messageDiv.textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
@@ -137,11 +142,11 @@ document.getElementById("answerThree").addEventListener("click", function () {
 
 document.getElementById("answerFour").addEventListener("click", function () {
     if (questions[i]["choices"][3] === questions[i]["answer"]) {
-        document.getElementById("message").textContent = "Correct!";
+        messageDiv.textContent = "Correct!";
         score++;
     }
     else {
-        document.getElementById("message").textContent = "Wrong!";
+        messageDiv.textContent = "Wrong!";
         secondsLeft -= 10;
     }
     i++;
